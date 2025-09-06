@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState } from 'react';
 import type { Appointment } from '../types/type';
 import { mockAppointments } from '../data/mockData';
@@ -22,7 +23,7 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
       patientName: String(payload.patientName || 'You'),
       date: String(payload.date || new Date().toISOString().slice(0, 10)),
       time: String(payload.time || '09:00 AM'),
-      status: (payload.status as any) || 'Upcoming',
+      status: (payload.status ?? 'Upcoming') as Appointment['status'],
     };
     setAppointments((s) => [newA, ...s]);
     return newA;
@@ -49,4 +50,4 @@ export const useBooking = () => {
   return ctx;
 };
 
-export default useBooking;
+// keep only named exports
